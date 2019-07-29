@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.TypesMapper">
+
+    <select id="queryAllTypes" resultType="com.qf.entity.Types">
+        select t1.*,t2.tname as pname from types t1 left join types t2 on t1.pid=t2.id order by t1.id
+    </select>
+</mapper>

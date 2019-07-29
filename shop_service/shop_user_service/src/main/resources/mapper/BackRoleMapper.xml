@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.BackRoleMapper">
+    <select id="queryRoleByUid" resultType="com.qf.entity.BackRole">
+          select r.* ,if((select rid from user_role_table where uid=#{uid} and rid=r.id),true,false) as checked  from role r
+    </select>
+</mapper>

@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+dubbo:
+  application:
+    name: back_web
+  registry:
+    address: zookeeper://192.168.191.191:2181
+  consumer:
+    check: false
+upload:
+  path: E:/Users/img/
+fdfs:
+  connect-timeout: 10000
+  so-timeout: 10000
+  tracker-list:
+    - 192.168.191.191:22122
+  thumb-image:
+    height: 100
+    width: 100
+  pool:
+    jmx-enabled: false

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.OrderMapper">
+
+    <insert id="insertOrder">
+        insert into orders${tableIndex} value
+        (#{order.orderid},#{order.person},#{order.address},#{order.phone},#{order.allprice},#{order.createtime},#{order.status},#{order.uid})
+    </insert>
+    <update id="updateOrderStatus">
+        update orders${tableIndex} set status = #{status} where orderid = #{orderid}
+    </update>
+
+
+    <resultMap id="MyResultMap" type="com.qf.entity.Order">
+        <id property="orderid" column="orderid"/>
+        <result property="person" column="person"/>
+        <result property="address" column="address"/>
+        <result property="phone" column="phone"/>
+        <result property="allprice" column="allprice"/>
+        <result property="createtime" column="createtime"/>
+        <result property="status" column="status"/>
+        <result property="uid" column="uid"/>
+
+        <!--对多的配置-->
+        <collection property="orderDetils" ofType="com.qf.entity.OrderDetils">
+            <id property="id" column="id"/>
+            <result property="orderid" column="orderid"/>
+            <result property="gid" column="gid"/>
+            <result property="gname" column="gname"/>
+            <result property="gprice" column="gprice"/>
+            <result property="gimage" column="gimage"/>
+            <result property="gnumber" column="gnumber"/>
+            <result property="sprice" column="sprice"/>
+        </collection>
+    </resultMap>
+    <!--关联查询订单和订单详情-->
+    <select id="queryOrderByUid" resultMap="MyResultMap">
+        select * from orders${tableIndex} o join order_detils${tableIndex} od
+        on o.orderid = od.orderid where o.uid = #{uid}
+        order by o.createtime desc
+    </select>
+    <select id="queryByOrderId" resultType="com.qf.entity.Order">
+        select * from orders${tableIndex} where orderid = #{orderid}
+    </select>
+</mapper>
